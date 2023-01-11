@@ -1,4 +1,4 @@
 .idea
 venv
 .DS_Store
-RestApi/__pycache__
+authentication.json
