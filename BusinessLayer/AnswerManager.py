@@ -9,6 +9,10 @@ class AnswerManager:
     def __del__(self):
         print("Answer manager object is destroyed.")
 
+    def display_repository_config_information(self):
+        answer = self.display_repository_config_information()
+        return answer
+
     def ask_question(self, question):
         answer = self.answerRepository.ask_question(question)
         return answer
