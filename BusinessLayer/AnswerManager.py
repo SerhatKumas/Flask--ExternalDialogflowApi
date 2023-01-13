@@ -10,9 +10,17 @@ class AnswerManager:
         print("Answer manager object is destroyed.")
 
     def display_repository_config_information(self):
-        answer = self.display_repository_config_information()
-        return answer
+        try:
+            answer = self.display_repository_config_information()
+            return answer
+        except Exception as e:
+            print(e)
+            return e + " Answer Management Error"
 
     def ask_question(self, question):
-        answer = self.answerRepository.ask_question(question)
-        return answer
+        try:
+            answer = self.answerRepository.ask_question(question)
+            return answer
+        except Exception as e:
+            print(e)
+            return e + " Answer Management Error"
