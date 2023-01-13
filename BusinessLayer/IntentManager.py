@@ -1,7 +1,7 @@
 from DataAccessLayer.IntentRepository import IntentRepository
 
 
-class IntentManger:
+class IntentManager:
 
     def __init__(self, intent_repository: IntentRepository):
         self.intent_repository = intent_repository
@@ -15,15 +15,7 @@ class IntentManger:
             return answer
         except Exception as e:
             print(e)
-            return e + " Intent Management Error"
-
-    def get_intent_by_display_name(self, display_name):
-        try:
-            answer = self.intent_repository.get_intent_by_display_name(display_name)
-            return answer
-        except Exception as e:
-            print(e)
-            return e + " Intent Management Error"
+            return e
 
     def get_all_intents(self):
         try:
@@ -31,15 +23,7 @@ class IntentManger:
             return answer
         except Exception as e:
             print(e)
-            return e + " Intent Management Error"
-
-    def get_intent_id_by_display_name(self, display_name):
-        try:
-            answer = self.intent_repository.get_intent_id_by_display_name(display_name)
-            return answer
-        except Exception as e:
-            print(e)
-            return e + " Intent Management Error"
+            return e
 
     def create_intent(self, display_name, user_training_phrases_parts, message_texts):
         try:
@@ -47,16 +31,15 @@ class IntentManger:
             return answer
         except Exception as e:
             print(e)
-            return e + " Intent Management Error"
+            return e
 
     def update_display_name_of_intent_by_display_name(self, display_name_from, display_name_to):
         try:
-            answer = self.intent_repository.update_display_name_of_intent_by_display_name\
-                (display_name_from, display_name_to)
+            answer = self.intent_repository.update_display_name_of_intent_by_display_name(display_name_from, display_name_to)
             return answer
         except Exception as e:
             print(e)
-            return e + " Intent Management Error"
+            return e
 
     def delete_intent_by_display_name(self, display_name):
         try:
@@ -64,13 +47,5 @@ class IntentManger:
             return answer
         except Exception as e:
             print(e)
-            return e + " Intent Management Error"
-
-    def get_all_training_phrases_by_display_name(self, display_name):
-        try:
-            answer = self.intent_repository.get_all_training_phrases_by_display_name(display_name)
-            return answer
-        except Exception as e:
-            print(e)
-            return e + " Intent Management Error"
+            return e
 

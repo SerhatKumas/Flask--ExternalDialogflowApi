@@ -13,21 +13,10 @@ class IntentRepository:
 
     def display_repository_config_information(self):
         project_id = "Project id : " + self.intent_repository_configuration.project_id
-        agent_parent = "Agent parent info :  " + self.intent_repository_configuration.agent_parent
-        intents_client = "Intents client info :  " + self.intent_repository_configuration.intents_client
+        agent_parent = "Agent parent info :  " + self.intent_repository_configuration.agent_parent.__str__()
+        intents_client = "Intents client info :  " + self.intent_repository_configuration.intents_client.__str__()
 
-        return project_id + " " + agent_parent + " " + intents_client
-
-    def get_intent_by_display_name(self, display_name):
-        intents_client = self.intent_repository_configuration.intents_client
-        parent = self.intent_repository_configuration.agent_parent
-        intents = intents_client.list_intents(request={"parent": parent})
-        requested_intent = None
-        for intent in intents:
-            if intent.display_name == display_name:
-                requested_intent = intent
-
-        return requested_intent
+        return project_id + " /// " + agent_parent + " /// " + intents_client
 
     def get_all_intents(self):
         intents_client = self.intent_repository_configuration.intents_client
@@ -42,23 +31,8 @@ class IntentRepository:
             print("Root followup intent: {}".format(intent.root_followup_intent_name))
             print("Parent followup intent: {}\n".format(intent.parent_followup_intent_name))
             intent_array.append(intent.display_name)
-            print("Input contexts:")
-            for input_context_name in intent.input_context_names:
-                print("\tName: {}".format(input_context_name))
-            print("Output contexts:")
-            for output_context in intent.output_contexts:
-                print("\tName: {}".format(output_context.name))
-        return intent_array
 
-    def get_intent_id_by_display_name(self, display_name):
-        intents_client = self.intent_repository_configuration.intents_client
-        parent = self.intent_repository_configuration.agent_parent
-        intents = intents_client.list_intents(request={"parent": parent})
-        intent_names = [
-            intent.name for intent in intents if intent.display_name == display_name
-        ]
-        intent_ids = [intent_name.split("/")[-1] for intent_name in intent_names]
-        return intent_ids
+        return intent_array
 
     def create_intent(self, display_name, user_training_phrases_parts, message_texts):
         intents_client = self.intent_repository_configuration.intents_client
@@ -94,8 +68,10 @@ class IntentRepository:
         intents_client.delete_intent(request={"name": intent.name})
         return "{} intent is deleted".format(intent.display_name)
 
-    def get_all_training_phrases_by_display_name(self, display_name):
-        intent = self.get_intent_by_display_name(display_name)
-        for phrase in intent.training_phrases:
-            print(phrase)
-        return intent.training_phrases
+    def get_intent_by_display_name(self, display_name):
+        intents_client = self.intent_repository_configuration.intents_client
+        parent = self.intent_repository_configuration.agent_parent
+        intents = intents_client.list_intents(request={"parent": parent})
+        for intent in intents:
+            if intent.display_name == display_name:
+                return intent

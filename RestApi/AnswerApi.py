@@ -27,7 +27,7 @@ def ask_question():
     return answer
 
 
-@app.route('/display-repository-config')
-def display_repository_config_information():
+@app.route('/display-answer-repository-config')
+def display_answer_repository_config_information():
     answer = answer_api_controller.display_repository_config_information()
     return answer

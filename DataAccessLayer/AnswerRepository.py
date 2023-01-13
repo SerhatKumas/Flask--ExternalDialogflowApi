@@ -16,7 +16,7 @@ class AnswerRepository:
         session_id = "Session id info :  " + self.answer_repository_configuration.session_id
         language_code = "Language code info :  " + self.answer_repository_configuration.language_code
 
-        return project_id + " " + session_id + " " + language_code
+        return project_id + " /// " + session_id + " /// " + language_code
 
     def ask_question(self, question):
         session_client = dialogflow.SessionsClient()
