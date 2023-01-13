@@ -25,3 +25,9 @@ def ask_question():
     question = request.args.get("question")
     answer = answer_api_controller.ask_question(question)
     return answer
+
+
+@app.route('/display-repository-config')
+def display_repository_config_information():
+    answer = answer_api_controller.display_repository_config_information()
+    return answer

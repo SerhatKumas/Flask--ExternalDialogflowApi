@@ -12,25 +12,20 @@ class AnswerRepository:
         print("Answer repository object is destroyed.")
 
     def display_repository_config_information(self):
-        information = "Project id : " + self.answer_repository_configuration.project_id
-        +"\n Session id info :  " + self.answer_repository_configuration.session_id
-        +"\n Language code info :  " + self.answer_repository_configuration.language_code
+        project_id = "Project id : " + self.answer_repository_configuration.project_id
+        session_id = "Session id info :  " + self.answer_repository_configuration.session_id
+        language_code = "Language code info :  " + self.answer_repository_configuration.language_code
 
-        return information
+        return project_id + " " + session_id + " " + language_code
 
     def ask_question(self, question):
         session_client = dialogflow.SessionsClient()
-
         session = session_client.session_path(self.answer_repository_configuration.project_id,
                                               self.answer_repository_configuration.session_id)
-
         print("Session path: {}\n".format(session))
-
         text_input = dialogflow.TextInput(text=question,
                                           language_code=self.answer_repository_configuration.language_code)
-
         query_input = dialogflow.QueryInput(text=text_input)
-
         response = session_client.detect_intent(
             request={"session": session, "query_input": query_input}
         )

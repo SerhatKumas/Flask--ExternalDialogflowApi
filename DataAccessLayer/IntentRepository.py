@@ -12,11 +12,11 @@ class IntentRepository:
         print("Intent repository object is destroyed.")
 
     def display_repository_config_information(self):
-        information = "Project id : " + self.intent_repository_configuration.project_id
-        + "\n Agent parent info :  " + self.intent_repository_configuration.agent_parent
-        + "\n Intents client info :  " + self.intent_repository_configuration.intents_client
+        project_id = "Project id : " + self.intent_repository_configuration.project_id
+        agent_parent = "Agent parent info :  " + self.intent_repository_configuration.agent_parent
+        intents_client = "Intents client info :  " + self.intent_repository_configuration.intents_client
 
-        return information
+        return project_id + " " + agent_parent + " " + intents_client
 
     def get_intent_by_display_name(self, display_name):
         intents_client = self.intent_repository_configuration.intents_client
