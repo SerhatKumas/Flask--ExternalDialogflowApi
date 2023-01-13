@@ -40,4 +40,3 @@ class IntentManger:
     def get_all_training_phrases_by_display_name(self, display_name):
         answer = self.intent_repository.get_all_training_phrases_by_display_name(display_name)
         return answer
-    
