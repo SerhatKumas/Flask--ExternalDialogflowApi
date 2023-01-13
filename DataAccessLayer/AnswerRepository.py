@@ -11,6 +11,11 @@ class AnswerRepository:
     def __del__(self):
         print("Answer repository object is destroyed.")
 
+    def display_repository_config_information(self):
+        print("Project id : " + self.answer_repository_configuration.project_id)
+        print("Session id info :  " + self.answer_repository_configuration.session_id)
+        print("Language code info :  " + self.answer_repository_configuration.language_code)
+
     def ask_question(self, question):
         session_client = dialogflow.SessionsClient()
 
