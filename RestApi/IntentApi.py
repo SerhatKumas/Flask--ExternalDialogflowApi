@@ -26,11 +26,17 @@ def get_all_intents():
     return answer
 
 
-# End point will be written when implementation is available
-def create_intent(display_name, user_training_phrases_parts, message_texts):
-    # Not implemented for user interface
-    answer = intent_api_controller.create_intent(display_name, user_training_phrases_parts, message_texts)
-    return answer
+@app.route('/create-intent-by-json', methods=['POST'])
+def create_intent_by_json():
+    number_of_created_intents = 0
+    intents = request.json.get("intents")
+    for intent in intents:
+        display_name = intent.get('display_name')
+        training_phase = intent.get('training_phase').split(',')
+        message_text = intent.get('message_text').split(',')
+        intent_api_controller.create_intent(display_name, training_phase, message_text)
+        number_of_created_intents += 1
+    return "{} new intent is created".format(number_of_created_intents)
 
 
 @app.route('/update-display-name')
@@ -46,4 +52,3 @@ def delete_intent_by_display_name():
     display_name = request.args.get("display_name")
     answer = intent_api_controller.delete_intent_by_display_name(display_name)
     return answer
-
