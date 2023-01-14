@@ -5,8 +5,10 @@ from CustomConfigurations.IntentRepositoryConfiguration import IntentRepositoryC
 from DataAccessLayer.IntentRepository import IntentRepository
 from app import app
 
+# Project Configuration
 project_id = "chatbotapiproject-dsnf"
 
+# Manager Object (Business Layer) Creation
 intent_api_controller = IntentManager(
     IntentRepository(
         IntentRepositoryConfiguration(project_id)
@@ -14,18 +16,21 @@ intent_api_controller = IntentManager(
 )
 
 
+# Configuration display end point
 @app.route('/display-intent-repository-config')
 def display_intent_repository_config_information():
     answer = intent_api_controller.display_repository_config_information()
     return answer
 
 
+# All intents chatbot has, display end point
 @app.route('/get-all-intents')
 def get_all_intents():
     answer = intent_api_controller.get_all_intents()
     return answer
 
 
+# Creation of intent by json data end point
 @app.route('/create-intent-by-json', methods=['POST'])
 def create_intent_by_json():
     number_of_created_intents = 0
@@ -39,6 +44,7 @@ def create_intent_by_json():
     return "{} new intent is created".format(number_of_created_intents)
 
 
+# Display name update end point
 @app.route('/update-display-name')
 def update_display_name():
     display_name_from = request.args.get("display_name_from")
@@ -47,6 +53,7 @@ def update_display_name():
     return answer
 
 
+# Intent deletion end point
 @app.route('/delete-intent')
 def delete_intent_by_display_name():
     display_name = request.args.get("display_name")

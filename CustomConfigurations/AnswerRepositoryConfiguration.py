@@ -1,5 +1,5 @@
 class AnswerRepositoryConfiguration:
-
+    # Configuration parameters injection
     def __init__(self, project_id, session_id, language_code):
         self.project_id = project_id
         self.session_id = session_id

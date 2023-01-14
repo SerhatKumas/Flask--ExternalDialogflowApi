@@ -5,12 +5,14 @@ from CustomConfigurations.AnswerRepositoryConfiguration import AnswerRepositoryC
 
 class AnswerRepository:
 
+    # Answer repository configuration object constructor injection
     def __init__(self, answer_repository_configuration: AnswerRepositoryConfiguration):
         self.answer_repository_configuration = answer_repository_configuration
 
     def __del__(self):
         print("Answer repository object is destroyed.")
 
+    # Configuration display method
     def display_repository_config_information(self):
         project_id = "Project id : " + self.answer_repository_configuration.project_id
         session_id = "Session id info :  " + self.answer_repository_configuration.session_id
@@ -18,6 +20,7 @@ class AnswerRepository:
 
         return project_id + " /// " + session_id + " /// " + language_code
 
+    # Question asking method
     def ask_question(self, question):
         session_client = dialogflow.SessionsClient()
         session = session_client.session_path(self.answer_repository_configuration.project_id,

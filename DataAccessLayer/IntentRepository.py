@@ -5,12 +5,14 @@ from CustomConfigurations.IntentRepositoryConfiguration import IntentRepositoryC
 
 
 class IntentRepository:
+    # Intent repository configuration object constructor injection
     def __init__(self, intent_repository_configuration: IntentRepositoryConfiguration):
         self.intent_repository_configuration = intent_repository_configuration
 
     def __del__(self):
         print("Intent repository object is destroyed.")
 
+    # Configuration display method
     def display_repository_config_information(self):
         project_id = "Project id : " + self.intent_repository_configuration.project_id
         agent_parent = "Agent parent info :  " + self.intent_repository_configuration.agent_parent.__str__()
@@ -18,6 +20,7 @@ class IntentRepository:
 
         return project_id + " /// " + agent_parent + " /// " + intents_client
 
+    # All intents chatbot has, display method
     def get_all_intents(self):
         intents_client = self.intent_repository_configuration.intents_client
         parent = self.intent_repository_configuration.agent_parent
@@ -34,6 +37,7 @@ class IntentRepository:
 
         return intent_array
 
+    # Creation of intent method
     def create_intent(self, display_name, user_training_phrases_parts, message_texts):
         intents_client = self.intent_repository_configuration.intents_client
         parent = self.intent_repository_configuration.agent_parent
@@ -54,6 +58,7 @@ class IntentRepository:
         )
         return "Intent created: {}".format(response)
 
+    # Display name update method
     def update_display_name_of_intent_by_display_name(self, display_name_from, display_name_to):
         intents_client = self.intent_repository_configuration.intents_client
         intent = self.get_intent_by_display_name(display_name_from)
@@ -62,12 +67,14 @@ class IntentRepository:
         intents_client.update_intent(intent=intent, update_mask=update_mask)
         return "{} intent name is changed to {}".format(display_name_from, display_name_to)
 
+    # Intent deletion method
     def delete_intent_by_display_name(self, display_name):
         intents_client = self.intent_repository_configuration.intents_client
         intent = self.get_intent_by_display_name(display_name)
         intents_client.delete_intent(request={"name": intent.name})
         return "{} intent is deleted".format(intent.display_name)
 
+    # Getting intent by display name / helper class for repository
     def get_intent_by_display_name(self, display_name):
         intents_client = self.intent_repository_configuration.intents_client
         parent = self.intent_repository_configuration.agent_parent
