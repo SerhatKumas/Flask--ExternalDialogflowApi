@@ -60,7 +60,7 @@ Example JSON :
 
 - git clone https://github.com/SerhatKumas/Flask--ExternalDialogflowApi.git
 
-- pip install <required-libraries>
+- pip install required-libraries
 
 - Enter "flask run" to terminal
 
