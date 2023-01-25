@@ -29,6 +29,7 @@ def ask_question():
     answer = answer_api_controller.ask_question(question)
     return answer
 
+
 # Configuration display end point
 @app.route('/display-answer-repository-config')
 def display_answer_repository_config_information():
