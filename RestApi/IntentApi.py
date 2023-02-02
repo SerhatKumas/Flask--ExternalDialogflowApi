@@ -1,9 +1,13 @@
+import flask
 from flask import request
+import json
 
 from BusinessLayer.IntentManager import IntentManager
 from CustomConfigurations.IntentRepositoryConfiguration import IntentRepositoryConfiguration
 from DataAccessLayer.IntentRepository import IntentRepository
 from app import app
+
+# export GOOGLE_APPLICATION_CREDENTIALS="/Users/serhatkumas/Desktop/BasicExternalDialogflowApi/authentication.json"
 
 # Project Configuration
 project_id = "chatbotapiproject-dsnf"
@@ -23,11 +27,17 @@ def display_intent_repository_config_information():
     return answer
 
 
+# All intents chatbot has, display web page
+@app.route('/all-intents-page', methods=["GET"])
+def get_all_intents_page():
+    return flask.render_template("IntentListPage.html")
+
+
 # All intents chatbot has, display end point
 @app.route('/get-all-intents')
 def get_all_intents():
     answer = intent_api_controller.get_all_intents()
-    return answer
+    return json.dumps(answer)
 
 
 # Creation of intent by json data end point
