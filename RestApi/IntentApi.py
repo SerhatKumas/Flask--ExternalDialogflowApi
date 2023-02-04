@@ -1,9 +1,14 @@
+import uuid
+
 import flask
 from flask import request
 import json
 
+from BusinessLayer.AnswerManager import AnswerManager
 from BusinessLayer.IntentManager import IntentManager
+from CustomConfigurations.AnswerRepositoryConfiguration import AnswerRepositoryConfiguration
 from CustomConfigurations.IntentRepositoryConfiguration import IntentRepositoryConfiguration
+from DataAccessLayer.AnswerRepository import AnswerRepository
 from DataAccessLayer.IntentRepository import IntentRepository
 from app import app
 
@@ -11,6 +16,17 @@ from app import app
 
 # Project Configuration
 project_id = "chatbotapiproject-dsnf"
+session_id = str(uuid.uuid4())
+language_code = "en-US"
+
+# Manager Object (Business Layer) Creation
+answer_api_controller = AnswerManager(
+    AnswerRepository(
+        AnswerRepositoryConfiguration(
+            project_id, session_id, language_code
+        )
+    )
+)
 
 # Manager Object (Business Layer) Creation
 intent_api_controller = IntentManager(
@@ -38,6 +54,16 @@ def get_all_intents_page():
 def get_all_intents():
     answer = intent_api_controller.get_all_intents()
     return json.dumps(answer)
+
+
+@app.route('/all-intents-page-info')
+def get_all_intent_page_info():
+    info = []
+    answer = intent_api_controller.get_all_intents()
+    for intent in answer:
+        info.append(intent)
+        info.append(answer_api_controller.ask_question(intent))
+    return json.dumps(info)
 
 
 # Creation of intent by json data end point
