@@ -55,3 +55,10 @@ class IntentManager:
             print(e)
             return e
 
+    def get_intent_id_by_display_name(self, display_name):
+        try:
+            answer = self.intent_repository.get_intent_id_by_display_name(display_name)
+            return answer
+        except Exception as e:
+            print(e)
+            return e
