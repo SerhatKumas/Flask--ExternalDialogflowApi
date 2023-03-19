@@ -3,6 +3,9 @@
 # Google Authentication Files
 authentication.json
 
+#Open Ai Api Key Files
+Open Ai Api KEy.txt
+
 # Byte-compiled / optimized / DLL files
 *__pycache__*
 __pycache__/
