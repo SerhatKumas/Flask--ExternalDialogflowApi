@@ -56,8 +56,8 @@ intent_api_controller = IntentManager(
 def ask_question():
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
-        json = request.get_json()
-        question = json["question"]
+        json_data = request.get_json()
+        question = json_data["question"]
         answer = answer_api_controller.ask_question(question)
         if answer in default_fallback_content:
             answer = openai_api_controller.ask_question(question)

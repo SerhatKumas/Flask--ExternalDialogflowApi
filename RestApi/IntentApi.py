@@ -83,15 +83,25 @@ def create_intent_by_json():
 # Display name update end point
 @app.route('/update-display-name')
 def update_display_name():
-    display_name_from = request.args.get("display_name_from")
-    display_name_to = request.args.get("display_name_to")
-    answer = intent_api_controller.update_display_name_of_intent_by_display_name(display_name_from, display_name_to)
-    return answer
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json_data = request.get_json()
+        display_name_from = json_data["display_name_from"]
+        display_name_to = json_data["display_name_to"]
+        answer = intent_api_controller.update_display_name_of_intent_by_display_name(display_name_from, display_name_to)
+        return answer
+    else:
+        return 'Content-Type not supported!'
 
 
 # Intent deletion end point
 @app.route('/delete-intent')
 def delete_intent_by_display_name():
-    display_name = request.args.get("display_name")
-    answer = intent_api_controller.delete_intent_by_display_name(display_name)
-    return answer
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json_data = request.get_json()
+        display_name = json_data["display_name"]
+        answer = intent_api_controller.delete_intent_by_display_name(display_name)
+        return answer
+    else:
+        return 'Content-Type not supported!'
