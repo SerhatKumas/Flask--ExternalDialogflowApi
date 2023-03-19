@@ -54,13 +54,17 @@ intent_api_controller = IntentManager(
 # Question asking end point
 @app.route('/ask-question')
 def ask_question():
-    question = request.args.get("question")
-    answer = answer_api_controller.ask_question(question)
-    if answer in default_fallback_content:
-        answer = openai_api_controller.ask_question(question)
-        intent_api_controller.create_intent(question,)
-
-    return answer
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.get_json()
+        question = json["question"]
+        answer = answer_api_controller.ask_question(question)
+        if answer in default_fallback_content:
+            answer = openai_api_controller.ask_question(question)
+            intent_api_controller.create_intent(question, [question], [answer])
+        return answer
+    else:
+        return 'Content-Type not supported!'
 
 
 # Configuration display end point
